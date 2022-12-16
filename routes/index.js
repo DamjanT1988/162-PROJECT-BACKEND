@@ -7,4 +7,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+//require mongoose
+var mongoose = require('mongoose');
+//connect to JSON file
+mongoose.connect('mongodb://localhost/companydb');
+
 module.exports = router;

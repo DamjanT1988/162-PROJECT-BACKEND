@@ -6,37 +6,63 @@ var router = express.Router();
 //require mongoose
 var mongoose = require('mongoose');
 //connect to JSON file
-const conn = mongoose.createConnection('mongodb://localhost/products');
+const conn = mongoose.createConnection('mongodb://localhost/user');
+//mongoose.Promise = global.Promise;
 
 //connect to mongoose database
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
 //open connection to db
 db.once('open', function (callback) {
-	console.log("Connected to db - products");
+	console.log("Connected to db - user");
 
 	//create a db-scheme
-	var productSchema = mongoose.Schema({
-		product_title: String,
-		ean_numer: String,
-		product_description: String,
-		amount_storage: Number,
-		price: Number,
-		expiration_date: String,
-		//created_at
+	var userSchema = mongoose.Schema({
+		name: String,
+		emailnew: String,
+		passwordnew: String,
 	});
 
 	//create a model
-	var Product = mongoose.model('Product', productSchema)
+	var User = mongoose.model('User', userSchema)
+
+
+	/********************************************* 
+	 * Add new user
+	 *********************************************/
+	router.post('/', function (req, res, next) {
+
+		User.find(function (err, userMongo) {
+			if (err) return console.error(err);
+			var user = userMongo;
+
+			//fix the list
+			user.push(req.body);
+			var jsonObj = JSON.stringify(user);
+			res.contentType('application/json');
+			res.send(jsonObj);
+
+			//create a new course with body as args
+			var newUser = new User(req.body);
+
+			//save to mongodb
+			newUser.save(function (err) {
+				if (err) return console.error(err);
+			});
+		});
+	});
+
+
+
+
 
 	/********************************************* 
 	 * Get complete course listing
 	 *********************************************/
 	router.get('/', function (req, res, next) {
 		//read from Mongo database
-		Product.find(function (err, productsMongo) {
+		User.find(function (err, productsMongo) {
 			if (err) return console.error(err);
 			var products = productsMongo;
 
@@ -52,7 +78,7 @@ db.once('open', function (callback) {
 	 *********************************************/
 	router.get('/:id', function (req, res, next) {
 		//read from Mongo database
-		Product.find(function (err, productsMongo) {
+		User.find(function (err, productsMongo) {
 			if (err) return console.error(err);
 			var products = productsMongo;
 
@@ -72,7 +98,7 @@ db.once('open', function (callback) {
 	 * Delete unique course id
 	 *********************************************/
 	router.delete('/:id', function (req, res, next) {
-		Product.find(function (err, productsMongo) {
+		User.find(function (err, productsMongo) {
 			if (err) return console.error(err);
 			var products = productsMongo;
 
@@ -91,7 +117,7 @@ db.once('open', function (callback) {
 			res.send(id);
 
 			//remove post in database
-			Product.deleteOne({ _id: id }, function (err, result) {
+			User.deleteOne({ _id: id }, function (err, result) {
 				if (err) {
 					console.log(err)
 				} else {
@@ -101,33 +127,7 @@ db.once('open', function (callback) {
 		});
 	});
 
-	/********************************************* 
-	 * Add new course
-	 *********************************************/
-	router.post('/', function (req, res, next) {
-
-		Product.find(function (err, productsMongo) {
-			if (err) return console.error(err);
-			var products = productsMongo;
-
-			//fix the list
-			products.push(req.body);
-			var jsonObj = JSON.stringify(products);
-			res.contentType('application/json');
-			res.send(jsonObj);
-
-			//create a new course with body as args
-			var product = new Product(req.body);
-
-			//save to mongodb
-			product.save(function (err) {
-				if (err) return console.error(err);
-			});
-		});
-	});
-
 
 });
-
 
 module.exports = router;

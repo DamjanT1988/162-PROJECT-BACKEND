@@ -7,7 +7,9 @@ var logger = require('morgan');
 
 //declare pathway to file; get files
 var indexRouter = require('./routes/index');
-var coursesRouter = require('./routes/products');
+var productsRouter = require('./routes/products');
+var userRouter = require('./routes/user');
+var keyRouter = require('./routes/key');
 
 //creta app
 var app = express();
@@ -25,7 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //connect files to pathway
 app.use('/', indexRouter);
-app.use('/products', coursesRouter);
+app.use('/products', productsRouter);
+app.use('/user', userRouter);
+app.use('/key', keyRouter);
 
 //allow call from any website; valid for all pages
 app.all('/*', function(req, res, next) {
