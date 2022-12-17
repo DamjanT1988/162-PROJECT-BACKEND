@@ -22,6 +22,9 @@ db.once('open', function (callback) {
 		name: String,
 		emailnew: String,
 		passwordnew: String,
+	},
+	{
+		timestamps: true
 	});
 
 	//create a model

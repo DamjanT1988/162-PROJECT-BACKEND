@@ -25,7 +25,9 @@ db.once('open', function (callback) {
 		amount_storage: Number,
 		price: Number,
 		expiration_date: String,
-		//created_at
+	},
+	{
+		timestamps: true
 	});
 
 	//create a model

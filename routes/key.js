@@ -20,6 +20,9 @@ db.once('open', function (callback) {
 	//create a db-scheme
 	var keySchema = mongoose.Schema({
 		key: String
+	},
+	{
+		timestamps: true
 	});
 
 	//create a model
@@ -51,20 +54,16 @@ db.once('open', function (callback) {
 		});
 	});
 
-
-
-
-
 	/********************************************* 
 	 * Get complete course listing
 	 *********************************************/
 	router.get('/', function (req, res, next) {
 		//read from Mongo database
-		User.find(function (err, productsMongo) {
+		Key.find(function (err, keyMongo) {
 			if (err) return console.error(err);
-			var products = productsMongo;
+			var key = keyMongo;
 
-			var jsonObj = JSON.stringify(products);
+			var jsonObj = JSON.stringify(key);
 			res.contentType('application/json');
 			res.send(jsonObj);
 		});

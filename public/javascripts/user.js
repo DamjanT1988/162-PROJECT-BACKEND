@@ -1,7 +1,7 @@
 "use strict";
 
 var baseURL = "http://localhost:3000/user/";
-var secURL = "http://localhost:3000/usersec/";
+var secURL = "http://localhost:3000/key/";
 
 // Wait for DOM to load
 document.addEventListener("DOMContentLoaded", function () {
