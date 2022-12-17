@@ -20,8 +20,8 @@ db.once('open', function (callback) {
 	//create a db-scheme
 	var userSchema = mongoose.Schema({
 		name: String,
-		emailnew: String,
-		passwordnew: String,
+		email: String,
+		password: String,
 	},
 	{
 		timestamps: true
@@ -56,10 +56,6 @@ db.once('open', function (callback) {
 		});
 	});
 
-
-
-
-
 	/********************************************* 
 	 * Get complete course listing
 	 *********************************************/
@@ -76,9 +72,11 @@ db.once('open', function (callback) {
 	});
 
 
+	
 	/********************************************* 
 	 * Get unique course id
 	 *********************************************/
+	/*
 	router.get('/:id', function (req, res, next) {
 		//read from Mongo database
 		User.find(function (err, productsMongo) {
@@ -96,10 +94,12 @@ db.once('open', function (callback) {
 			res.send(ind >= 0 ? products[ind] : '{}'); // If we find the user id then return the user object otherwise return {}
 		});
 	});
+	*/
 
 	/********************************************* 
 	 * Delete unique course id
 	 *********************************************/
+	/*
 	router.delete('/:id', function (req, res, next) {
 		User.find(function (err, productsMongo) {
 			if (err) return console.error(err);
@@ -129,7 +129,7 @@ db.once('open', function (callback) {
 			});
 		});
 	});
-
+	*/
 
 });
 
