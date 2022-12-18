@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 //require mongoose
 var mongoose = require('mongoose');
-//connect to JSON file
+//connect to database
 mongoose.connect('mongodb://localhost/companydb');
 
 module.exports = router;

@@ -5,7 +5,7 @@ var router = express.Router();
 
 //require mongoose
 var mongoose = require('mongoose');
-//connect to JSON file
+//create connect to collection
 const conn = mongoose.createConnection('mongodb://localhost/products');
 
 //connect to mongoose database
@@ -34,7 +34,7 @@ db.once('open', function (callback) {
 	var Product = mongoose.model('Product', productSchema)
 
 	/********************************************* 
-	 * Get complete course listing
+	 * Get complete listing
 	 *********************************************/
 	router.get('/', function (req, res, next) {
 		//read from Mongo database
@@ -50,7 +50,7 @@ db.once('open', function (callback) {
 
 
 	/********************************************* 
-	 * Get unique course id
+	 * Get unique id
 	 *********************************************/
 	router.get('/:id', function (req, res, next) {
 		//read from Mongo database
@@ -63,12 +63,39 @@ db.once('open', function (callback) {
 			var ind = -1;
 
 			for (var i = 0; i < products.length; i++) {
-				if (products[i]._id == id) ind = i; // Find the array index that holds _id = id   
+				//find the array index that holds _id = id
+				if (products[i]._id == id) ind = i;    
 			}
 			res.contentType('application/json');
-			res.send(ind >= 0 ? products[ind] : '{}'); // If we find the user id then return the user object otherwise return {}
+			//if we find the user id then return the user object otherwise return {}
+			res.send(ind >= 0 ? products[ind] : '{}'); 
 		});
 	});
+
+	/********************************************* 
+	 * Update product
+	 *********************************************/
+		router.put('/:id', function (req, res, next) {
+			Product.find(function (err, keyMongo) {
+				if (err) return console.error(err);
+				//var key = keyMongo;
+				var id = req.params.id;
+				var body = req.body;
+	
+				//send back
+				res.contentType('application/json');
+				res.send(id + " product updated!");
+	
+				//update post in database
+				Product.updateOne({ _id: id }, {$set: body}, function (err, result) {
+					if (err) {
+						console.log(err)
+					} else {
+						console.log("Result :", result)
+					}
+				});
+			});
+		});
 
 	/********************************************* 
 	 * Delete unique course id
@@ -84,9 +111,11 @@ db.once('open', function (callback) {
 
 			//fix the array list
 			for (var i = 0; i < products.length; i++) {
-				if (products[i]._id == id) del = i; // Find the array index that holds _id = id    
+				//find the array index that holds _id = id
+				if (products[i]._id == id) del = i;     
 			}
-			if (del >= 0) status = products.splice(del, 1); // Delete element and fix array
+			//delete element and fix array
+			if (del >= 0) status = products.splice(del, 1); 
 
 			//send back id
 			res.contentType('application/json');
@@ -118,7 +147,7 @@ db.once('open', function (callback) {
 			res.contentType('application/json');
 			res.send(jsonObj);
 
-			//create a new course with body as args
+			//create a new with body as args
 			var product = new Product(req.body);
 
 			//save to mongodb

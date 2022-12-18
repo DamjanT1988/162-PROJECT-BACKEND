@@ -5,7 +5,7 @@ var router = express.Router();
 
 //require mongoose
 var mongoose = require('mongoose');
-//connect to JSON file
+//create connect to collection
 const conn = mongoose.createConnection('mongodb://localhost/users');
 //mongoose.Promise = global.Promise;
 
@@ -15,7 +15,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 //open connection to db
 db.once('open', function (callback) {
-	console.log("Connected to db - user");
+	console.log("Connected to db - users");
 
 	//create a db-scheme
 	var userSchema = mongoose.Schema({
@@ -32,6 +32,21 @@ db.once('open', function (callback) {
 
 
 	/********************************************* 
+	 * Get complete listing
+	 *********************************************/
+	router.get('/', function (req, res, next) {
+		//read from Mongo database
+		User.find(function (err, productsMongo) {
+			if (err) return console.error(err);
+			var products = productsMongo;
+
+			var jsonObj = JSON.stringify(products);
+			res.contentType('application/json');
+			res.send(jsonObj);
+		});
+	});
+
+	/********************************************* 
 	 * Add new user
 	 *********************************************/
 	router.post('/', function (req, res, next) {
@@ -46,7 +61,7 @@ db.once('open', function (callback) {
 			res.contentType('application/json');
 			res.send(jsonObj);
 
-			//create a new course with body as args
+			//create a new with body as args
 			var newUser = new User(req.body);
 
 			//save to mongodb
@@ -56,20 +71,6 @@ db.once('open', function (callback) {
 		});
 	});
 
-	/********************************************* 
-	 * Get complete course listing
-	 *********************************************/
-	router.get('/', function (req, res, next) {
-		//read from Mongo database
-		User.find(function (err, productsMongo) {
-			if (err) return console.error(err);
-			var products = productsMongo;
-
-			var jsonObj = JSON.stringify(products);
-			res.contentType('application/json');
-			res.send(jsonObj);
-		});
-	});
 
 
 	
