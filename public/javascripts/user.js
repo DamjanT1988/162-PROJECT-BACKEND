@@ -8,62 +8,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Read and publish all users 
     let url = baseURL;
-    let urlsec = secURL;
+    let urlkey = secURL;
 
-    //document.getElementById("_id").value = "";
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("name").value = "";
-    //document.getElementById("email").value = "";
-    //document.getElementById("password").value = "";
-    //document.getElementById("key").value = "";
+    document.getElementById("key").value = "";
 
     //
     // Create event handler for add user
     document.getElementById("adduser").addEventListener("click", function (e) {
         
-        fetch(urlsec, {
+        fetch(urlkey, {
             method: 'GET',
-            body: JSON.stringify(obj),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         })
             .then(response => response.text())
             .then(data => {
-                //location.reload();
-            })
-    
-            .catch(error => {
-                alert('There was an error ' + error);
-            });
-    
-        
-        
-        var obj = {};
 
-        obj.name = document.getElementById("name").value;
-        obj.email = document.getElementById("email").value;
-        obj.password = document.getElementById("password").value;
+            var jsonData = JSON.parse(data);
 
-        fetch(url, {
-            method: 'POST',
-            body: JSON.stringify(obj),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
+            console.log(jsonData[0].key);
+
+            var obj = {};
+            obj.key = document.getElementById("key").value;
+
+            if (jsonData[0].key == obj.key)  {
+                console.log("Correct!");
+                
+                var obj = {};
+                obj.name = document.getElementById("name").value;
+                obj.email = document.getElementById("email").value;
+                obj.password = document.getElementById("password").value;
+        
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(obj),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        location.reload();
+                    })
+        
+                    .catch(error => {
+                        alert('There was an error ' + error);
+                    });
+            
+            } else {
+                console.log("Incorrect!");
             }
-        })
-            .then(response => response.text())
-            .then(data => {
-                location.reload();
-            })
 
+            })
+    
             .catch(error => {
                 alert('There was an error ' + error);
             });
+    
     });
 
 }); // End of DOM content loaded 
+
 
 
 
