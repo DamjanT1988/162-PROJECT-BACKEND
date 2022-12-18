@@ -44,8 +44,8 @@ router.get('/', function (req, res, next) {
       res.contentType('application/json');
       res.send(id + " product updated!");
   
-      Product.updateOne({ _id: id }, { $set: body }, function 
-        (err, result) {
+      Product.updateOne({ _id: id }, { $set: body }, 
+		function (err, result) {
         if (err) {
           console.log(err)
         } else {
@@ -56,7 +56,7 @@ router.get('/', function (req, res, next) {
   });
   
   /********************************************* 
-   * Delete unique course id
+   * Delete unique id
    *********************************************/
   router.delete('/:id', function (req, res, next) {
     Product.find(function (err, productsMongo) {
@@ -73,7 +73,8 @@ router.get('/', function (req, res, next) {
       res.contentType('application/json');
       res.send(id);
   
-      Product.deleteOne({ _id: id }, function (err, result) {
+      Product.deleteOne({ _id: id }, function 
+		(err, result) {
         if (err) {
           console.log(err)
         } else {
@@ -83,23 +84,3 @@ router.get('/', function (req, res, next) {
     });
   });
   
-  /********************************************* 
-   * Add new product
-   *********************************************/
-  router.post('/', function (req, res, next) {
-    Product.find(function (err, productsMongo) {
-      if (err) return console.error(err);
-      var products = productsMongo;
-  
-      products.push(req.body);
-      var jsonObj = JSON.stringify(products);
-      res.contentType('application/json');
-      res.send(jsonObj);
-  
-      var product = new Product(req.body);
-  
-      product.save(function (err) {
-        if (err) return console.error(err);
-      });
-    });
-  });

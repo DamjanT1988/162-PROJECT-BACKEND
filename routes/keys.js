@@ -94,25 +94,6 @@ db.once('open', function (callback) {
 		});
 	});
 
-
-	/********************************************* 
-	 * Add new key
-	 *********************************************/
-		router.post('/', function (req, res, next) {
-
-			Key.find(function (err, keyMongo) {
-				if (err) return console.error(err);
-				var key = keyMongo;
-	
-				//create a new with body as args
-				var newKey = new Key(req.body);
-	
-				//save to mongodb
-				newKey.save(function (err) {
-					if (err) return console.error(err);
-				});
-			});
-		});
 });
 
 module.exports = router;

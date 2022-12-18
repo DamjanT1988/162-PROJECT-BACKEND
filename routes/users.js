@@ -71,57 +71,23 @@ db.once('open', function (callback) {
 		});
 	});
 
-
-
-	
 	/********************************************* 
-	 * Get unique course id
+	 * Update password
 	 *********************************************/
-	/*
-	router.get('/:id', function (req, res, next) {
-		//read from Mongo database
-		User.find(function (err, productsMongo) {
+	router.put('/:id', function (req, res, next) {
+		User.find(function (err, userMongo) {
 			if (err) return console.error(err);
-			var products = productsMongo;
-
-			//read in mongoDB special id numbers
+			//var key = userMongo;
 			var id = req.params.id;
-			var ind = -1;
+			
+			var body = req.body;
 
-			for (var i = 0; i < products.length; i++) {
-				if (products[i]._id == id) ind = i; // Find the array index that holds _id = id   
-			}
+			//send back key
 			res.contentType('application/json');
-			res.send(ind >= 0 ? products[ind] : '{}'); // If we find the user id then return the user object otherwise return {}
-		});
-	});
-	*/
-
-	/********************************************* 
-	 * Delete unique course id
-	 *********************************************/
-	/*
-	router.delete('/:id', function (req, res, next) {
-		User.find(function (err, productsMongo) {
-			if (err) return console.error(err);
-			var products = productsMongo;
-
-			var id = req.params.id;
-			//console.log(id);
-			var del = -1;
-
-			//fix the array list
-			for (var i = 0; i < products.length; i++) {
-				if (products[i]._id == id) del = i; // Find the array index that holds _id = id    
-			}
-			if (del >= 0) status = products.splice(del, 1); // Delete element and fix array
-
-			//send back id
-			res.contentType('application/json');
-			res.send(id);
+			res.send(id + " password updated!");
 
 			//remove post in database
-			User.deleteOne({ _id: id }, function (err, result) {
+			Key.updateOne({ _id: id }, {$set: body}, function (err, result) {
 				if (err) {
 					console.log(err)
 				} else {
@@ -130,7 +96,6 @@ db.once('open', function (callback) {
 			});
 		});
 	});
-	*/
 
 });
 
