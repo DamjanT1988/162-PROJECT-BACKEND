@@ -1,7 +1,7 @@
 "use strict";
 
-var baseURL = "http://localhost:3000/user/";
-var secURL = "http://localhost:3000/key/";
+var baseURL = "http://localhost:3000/users/";
+var secURL = "http://localhost:3000/keys/";
 
 // Wait for DOM to load
 document.addEventListener("DOMContentLoaded", function () {
@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("name").value = "";
-    document.getElementById("emailnew").value = "";
-    document.getElementById("passwordnew").value = "";
-    document.getElementById("securitykey").value = "";
+    //document.getElementById("email").value = "";
+    //document.getElementById("password").value = "";
+    //document.getElementById("key").value = "";
 
     //
     // Create event handler for add user
@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
         var obj = {};
 
         obj.name = document.getElementById("name").value;
-        obj.emailnew = document.getElementById("emailnew").value;
-        obj.passwordnew = document.getElementById("passwordnew").value;
+        obj.email = document.getElementById("email").value;
+        obj.password = document.getElementById("password").value;
 
         fetch(url, {
             method: 'POST',

@@ -6,7 +6,7 @@ var router = express.Router();
 //require mongoose
 var mongoose = require('mongoose');
 //connect to JSON file
-const conn = mongoose.createConnection('mongodb://localhost/key');
+const conn = mongoose.createConnection('mongodb://localhost/keys');
 //mongoose.Promise = global.Promise;
 
 //connect to mongoose database

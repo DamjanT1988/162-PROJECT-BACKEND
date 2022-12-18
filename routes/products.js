@@ -20,7 +20,7 @@ db.once('open', function (callback) {
 	//create a db-scheme
 	var productSchema = mongoose.Schema({
 		product_title: String,
-		ean_numer: String,
+		ean_number: String,
 		product_description: String,
 		amount_storage: Number,
 		price: Number,
@@ -104,7 +104,7 @@ db.once('open', function (callback) {
 	});
 
 	/********************************************* 
-	 * Add new course
+	 * Add new product
 	 *********************************************/
 	router.post('/', function (req, res, next) {
 

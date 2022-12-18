@@ -24,11 +24,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             var jsonData = JSON.parse(data);
 
+            console.log(jsonData);
+
             var s = "<table><th>PROD.TITLE</th><th>EAN.NO.</th><th>PROD.DESC.</th><th>AMOUNT</th><th>PRICE</th><th>EXPIRATION</th>";
 
             for (var i = 0; i < jsonData.length; i++) {
                 s += "<tr><td>" + jsonData[i].product_title + "</td><td>" + jsonData[i].ean_number +
-                    "</td><td>" + jsonData[i].product_description + "</td><td>" + jsonData[i].amount_storage + "</td><td>" + jsonData[i].price + "</td><td>" + jsonData[i].expiration_date + "</td><td><img src='images/papperskorg.png' alt='Erase user' id=" + jsonData[i]._id + " /></td></tr>";
+                    "</td><td>" + jsonData[i].product_description + "</td><td>" + jsonData[i].amount_storage + 
+                    "</td><td>" + jsonData[i].price + "</td><td>" + jsonData[i].expiration_date + 
+                    "</td><td><img src='images/papperskorg.png' alt='Erase user' id=" + jsonData[i]._id + 
+                    " /></td></tr>";
             }
 
             s += "</table>";
