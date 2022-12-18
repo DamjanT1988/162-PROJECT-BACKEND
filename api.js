@@ -8,8 +8,8 @@ var logger = require('morgan');
 //declare pathway to file; get files
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
-var userRouter = require('./routes/user');
-var keyRouter = require('./routes/key');
+var userRouter = require('./routes/users');
+var keyRouter = require('./routes/keys');
 
 //creta app
 var api = express();
@@ -28,8 +28,8 @@ api.use(express.static(path.join(__dirname, 'public')));
 //connect files to pathway
 api.use('/', indexRouter);
 api.use('/products', productsRouter);
-api.use('/user', userRouter);
-api.use('/key', keyRouter);
+api.use('/users', userRouter);
+api.use('/keys', keyRouter);
 
 //allow call from any website; valid for all pages
 api.all('/*', function(req, res, next) {
