@@ -6,7 +6,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 //create connect to collection
 const conn = mongoose.createConnection('mongodb://localhost/keys');
-//mongoose.Promise = global.Promise;
 
 //connect to mongoose database
 var db = mongoose.connection;
@@ -20,9 +19,9 @@ db.once('open', function (callback) {
 	var keySchema = mongoose.Schema({
 		key: String
 	},
-	{
-		timestamps: true
-	});
+		{
+			timestamps: true
+		});
 
 	//create a model
 	var Key = mongoose.model('Key', keySchema)
@@ -58,13 +57,13 @@ db.once('open', function (callback) {
 			//loop id numbers
 			for (var i = 0; i < key.length; i++) {
 				//find the array index that holds _id = id
-				if (key[i]._id == id) ind = i;    
+				if (key[i]._id == id) ind = i;
 			}
 			//return JSON data
 			res.contentType('application/json');
 			//if we find the user id then return the user 
 			//object otherwise return {}
-			res.send(ind >= 0 ? key[ind] : '{}'); 
+			res.send(ind >= 0 ? key[ind] : '{}');
 		});
 	});
 
@@ -84,7 +83,7 @@ db.once('open', function (callback) {
 			res.send(id + " key updated!");
 
 			//remove post/object in database
-			Key.updateOne({ _id: id }, {$set: body}, function (err, result) {
+			Key.updateOne({ _id: id }, { $set: body }, function (err, result) {
 				if (err) {
 					console.log(err)
 				} else {
