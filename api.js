@@ -20,7 +20,7 @@ api.set('views', path.join(__dirname, 'views'));
 api.set('view engine', 'pug');
 
 //app use tools
-//api.use(logger('dev'));
+api.use(logger('dev'));
 api.use(express.json());
 api.use(express.urlencoded({ extended: false }));
 api.use(cookieParser());

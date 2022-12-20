@@ -47,6 +47,28 @@ db.once('open', function (callback) {
 	});
 
 	/********************************************* 
+	 * Get user login details
+	 *********************************************/
+router.get('/:email', function (req, res, next) {
+	User.find(function (err, userMongo) {
+		if (err) return console.error(err);
+		var user = userMongo;
+		var id = req.params.email;
+		var del = -1;
+		//fix the array list
+		for (var i = 0; i < user.length; i++) {
+			//find the array index that holds _id = id
+			if (user[i].email == id) del = i;
+		}
+		//delete element and fix array
+		if (del >= 0) status = user.splice(del, 1);
+		//send back response
+		res.contentType('application/json');
+		res.send(id + " user found");
+	});
+});
+
+	/********************************************* 
 	 * Update password
 	 *********************************************/
 	router.put('/:id', function (req, res, next) {
