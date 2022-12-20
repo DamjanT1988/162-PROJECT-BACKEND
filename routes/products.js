@@ -6,6 +6,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 //create connect to collection
 const conn = mongoose.createConnection('mongodb://localhost/products');
+mongoose.Promise = global.Promise;
 
 //connect to mongoose database
 var db = mongoose.connection;

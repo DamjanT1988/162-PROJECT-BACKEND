@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 //declare pathway to file; get files
 var indexRouter = require('./routes/index');
@@ -19,7 +20,7 @@ api.set('views', path.join(__dirname, 'views'));
 api.set('view engine', 'pug');
 
 //app use tools
-api.use(logger('dev'));
+//api.use(logger('dev'));
 api.use(express.json());
 api.use(express.urlencoded({ extended: false }));
 api.use(cookieParser());
@@ -36,6 +37,12 @@ api.all('/*', function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+  res.header("Access-Control-Allow-Methods", "Content-type");
+  //res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+  //res.header("Access-Control-Allow-Credentials", "true");
+  //res.header("Access-Control-Allow-Headers", "*");
+  //res.header("Access-Control-Allow-Methods", "*");
+  //res.header("Access-Control-Max-Age", "300");
 	next();
 });
 
@@ -56,3 +63,17 @@ api.use(function(err, req, res, next) {
 });
 
 module.exports = api
+
+/*
+api.use(cors({
+  origin: '*',
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
+
+api.get('/users', cors(), (req, res, next) => {
+  res.send("err");
+});
+
+api.listen(3001)
+
+*/
