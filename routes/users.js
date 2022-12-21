@@ -47,26 +47,42 @@ db.once('open', function (callback) {
 	});
 
 	/********************************************* 
-	 * Get user login details
+	 * Login
 	 *********************************************/
-router.get('/:email', function (req, res, next) {
-	User.find(function (err, userMongo) {
-		if (err) return console.error(err);
-		var user = userMongo;
-		var id = req.params.email;
-		var del = -1;
-		//fix the array list
-		for (var i = 0; i < user.length; i++) {
-			//find the array index that holds _id = id
-			if (user[i].email == id) del = i;
-		}
-		//delete element and fix array
-		if (del >= 0) status = user.splice(del, 1);
-		//send back response
-		res.contentType('application/json');
-		res.send(id + " user found");
+	router.post('/login', function (req, res, next) {
+		User.find(function (err, userMongo) {
+			if (err) return console.error(err);
+			var user = userMongo;
+			var body = req.body;
+			var email = body.email;
+			var password = body.password;
+
+			//loop all users the array list
+			for (var i = 0; i < user.length; i++) {
+
+				var id = user[i]._id;
+				//find the array index that holds email and password
+				if (user[i].email == email && user[i].password == password) {
+					res.contentType('application/json');
+					res.send(
+						{
+							message: "Login approved!",
+							token: id
+						}
+					);
+				} else if (user.length == i + 1) {
+					res.send(
+						{
+							message: "Login disapproved!"
+						}
+					);
+				}
+
+				return false;
+
+			}
+		});
 	});
-});
 
 	/********************************************* 
 	 * Update password
