@@ -32,6 +32,10 @@ api.use('/products', productsRouter);
 api.use('/users', userRouter);
 api.use('/keys', keyRouter);
 
+api.use(
+  cors({origin: 'http://127.0.0.1:8080'})
+);
+
 //allow call from any website; valid for all pages
 api.all('/*', function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
