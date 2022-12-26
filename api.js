@@ -6,6 +6,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
+//publish
+const serverless = require('serverless-http');
+
+//router
+const router = express.Router();
+
+//
+router.get('/', (req, res) => {
+  console.log(res)
+});
+
+//bind
+api.use('/.netlify/functions/api', router)
+
 //declare pathway to file; get files
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
@@ -24,7 +38,7 @@ api.use(logger('dev'));
 api.use(express.json());
 api.use(express.urlencoded({ extended: false }));
 api.use(cookieParser());
-api.use(express.static(path.join(__dirname, 'public')));
+api.use(express.static(path.join(__dirname, 'dist')));
 
 //connect files to pathway
 api.use('/', indexRouter);
@@ -68,7 +82,7 @@ api.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = api
+module.exports.handler = serverless(api);
 
 /*
 api.use(cors({
