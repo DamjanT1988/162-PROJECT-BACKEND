@@ -5,7 +5,11 @@ var router = express.Router();
 //require mongoose
 var mongoose = require('mongoose');
 //create connect to collection
-const conn = mongoose.createConnection('mongodb://localhost/keys');
+//local
+//const conn = mongoose.createConnection('mongodb://localhost/keys');
+//Atlas server
+const conn = mongoose.createConnection('mongodb+srv://Damjan:Pass@cluster0.ckb7rlx.mongodb.net/test');
+
 mongoose.Promise = global.Promise;
 
 //connect to mongoose database
