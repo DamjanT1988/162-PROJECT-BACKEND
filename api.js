@@ -50,9 +50,23 @@ api.use('/keys', keyRouter);
 
 /*
 api.use(
-  cors({origin: 'http://127.0.0.1:8080'})
+
 );
 */
+
+
+api.use(cors({
+  origin: 'http://127.0.0.1:8080',
+  //origin: '*',
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
+
+api.get('/users', cors(), (req, res, next) => {
+  res.send("err");
+});
+
+api.listen(3001)
+
 
 //allow call from any website; valid for all pages
 api.all('/*', function(req, res, next) {
@@ -86,17 +100,3 @@ api.use(function(err, req, res, next) {
 
 //module.exports.handler = serverless(api);
 module.exports = api;
-
-/*
-api.use(cors({
-  origin: '*',
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}));
-
-api.get('/users', cors(), (req, res, next) => {
-  res.send("err");
-});
-
-api.listen(3001)
-
-*/
