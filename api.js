@@ -6,22 +6,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
-/*
-//publish
-const serverless = require('serverless-http');
-
-//router
-const router = express.Router();
-
-//
-router.get('/', (req, res) => {
-  console.log(res)
-});
-
-//bind
-api.use('/.netlify/functions/api', router)
-*/
-
 //declare pathway to file; get files
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
@@ -30,6 +14,12 @@ var keyRouter = require('./routes/keys');
 
 //creta app
 var api = express();
+
+api.use(cors({
+  origin: 'http://localhost:8080',
+  //origin: '*',
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
 
 // view engine setup
 api.set('views', path.join(__dirname, 'views'));
@@ -48,25 +38,6 @@ api.use('/products', productsRouter);
 api.use('/users', userRouter);
 api.use('/keys', keyRouter);
 
-/*
-api.use(
-
-);
-*/
-
-
-api.use(cors({
-  origin: 'http://127.0.0.1:8080',
-  //origin: '*',
-  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
-}));
-
-api.get('/users', cors(), (req, res, next) => {
-  res.send("err");
-});
-
-api.listen(3001)
-
 
 //allow call from any website; valid for all pages
 api.all('/*', function(req, res, next) {
@@ -74,11 +45,8 @@ api.all('/*', function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "X-Requested-With");
 	res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
   res.header("Access-Control-Allow-Methods", "Content-type");
-  //res.header("Access-Control-Allow-Origin", "http://localhost:3001");
-  //res.header("Access-Control-Allow-Credentials", "true");
-  //res.header("Access-Control-Allow-Headers", "*");
-  //res.header("Access-Control-Allow-Methods", "*");
-  //res.header("Access-Control-Max-Age", "300");
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Credentials", "true");
 	next();
 });
 
