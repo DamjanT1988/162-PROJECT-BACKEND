@@ -17,11 +17,10 @@ var api = express();
 
 api.use(cors({
   origin: 'http://localhost:8080',
-  //origin: '*',
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
 }));
 
-// view engine setup
+//view engine setup
 api.set('views', path.join(__dirname, 'views'));
 api.set('view engine', 'pug');
 
