@@ -151,10 +151,17 @@ db.once('open', function (callback) {
 			if (err) return console.error(err);
 			var user = userMongo;
 			//return JASON data
-			user.push(req.body);
-			var jsonObj = JSON.stringify(user);
+			//user.push(req.body);
+			//var jsonObj = JSON.stringify(user);
+			//res.contentType('application/json');
+			//res.send(jsonObj);
+
 			res.contentType('application/json');
-			res.send(jsonObj);
+			res.send(
+				{
+					message: "Login approved!"
+				})
+
 			//create a new db object with body as args
 			var newUser = new User(req.body);
 			//save to mongodb
