@@ -37,18 +37,6 @@ api.use('/products', productsRouter);
 api.use('/users', userRouter);
 api.use('/keys', keyRouter);
 
-
-//allow call from any website; valid for all pages
-api.all('/*', function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-	res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
-  res.header("Access-Control-Allow-Methods", "Content-type");
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-  res.header("Access-Control-Allow-Credentials", "true");
-	next();
-});
-
 // catch 404 and forward to error handler
 api.use(function(req, res, next) {
   next(createError(404));

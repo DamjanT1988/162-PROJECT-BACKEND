@@ -151,11 +151,12 @@ db.once('open', function (callback) {
 			if (err) return console.error(err);
 			var user = userMongo;
 			//return JASON data
-			//user.push(req.body);
-			//var jsonObj = JSON.stringify(user);
-			//res.contentType('application/json');
-			//res.send(jsonObj);
-
+			/*
+			user.push(req.body);
+			var jsonObj = JSON.stringify(user);
+			res.contentType('application/json');
+			res.send(jsonObj);
+			*/
 			res.contentType('application/json');
 			res.send(
 				{
