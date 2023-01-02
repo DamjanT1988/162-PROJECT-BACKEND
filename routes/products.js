@@ -4,7 +4,7 @@ var router = express.Router();
 //require mongoose
 var mongoose = require('mongoose');
 //create connect to collection
-//local
+//local server
 const conn = mongoose.createConnection('mongodb://localhost/products');
 //Atlas server
 //const conn = mongoose.createConnection('mongodb+srv://Damjan:Pass@cluster0.ckb7rlx.mongodb.net/test');
@@ -29,7 +29,6 @@ db.once('open', function (callback) {
 		});
 	//create a model
 	var Product = mongoose.model('Product', productSchema)
-
 	/********************************************* 
 	 * Get complete list of objects in collection
 	 *********************************************/

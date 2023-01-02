@@ -75,7 +75,7 @@ db.once('open', function (callback) {
 						}
 					);
 					continue
-				}
+ 				} 
 			}
 		});
 	});
