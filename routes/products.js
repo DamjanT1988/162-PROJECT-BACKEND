@@ -1,7 +1,6 @@
 //require express, create router
 var express = require('express');
 var router = express.Router();
-
 //require mongoose
 var mongoose = require('mongoose');
 //create connect to collection
@@ -9,17 +8,13 @@ var mongoose = require('mongoose');
 const conn = mongoose.createConnection('mongodb://localhost/products');
 //Atlas server
 //const conn = mongoose.createConnection('mongodb+srv://Damjan:Pass@cluster0.ckb7rlx.mongodb.net/test');
-
 mongoose.Promise = global.Promise;
-
 //connect to mongoose database
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-
 //open connection to db
 db.once('open', function (callback) {
 	console.log("Connected to db - products");
-
 	//create a db-scheme
 	var productSchema = mongoose.Schema({
 		product_title: String,
@@ -32,7 +27,6 @@ db.once('open', function (callback) {
 		{
 			timestamps: true
 		});
-
 	//create a model
 	var Product = mongoose.model('Product', productSchema)
 
