@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
 var userRouter = require('./routes/users');
 var keyRouter = require('./routes/keys');
-//creta app
+//create app
 var api = express();
 api.use(cors({
   origin: 'http://localhost:8080',
