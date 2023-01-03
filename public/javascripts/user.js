@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //
     // Create event handler for add user
     document.getElementById("adduser").addEventListener("click", function (e) {
-        
+
         fetch(urlkey, {
             method: 'GET',
             headers: {
@@ -28,47 +28,47 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.text())
             .then(data => {
 
-            var jsonData = JSON.parse(data);
+                var jsonData = JSON.parse(data);
 
-            console.log(jsonData[0].key);
+                console.log(jsonData[0].key);
 
-            var obj = {};
-            obj.key = document.getElementById("key").value;
-
-            if (jsonData[0].key == obj.key)  {
-                console.log("Correct!");
-                
                 var obj = {};
-                obj.name = document.getElementById("name").value;
-                obj.email = document.getElementById("email").value;
-                obj.password = document.getElementById("password").value;
-        
-                fetch(url, {
-                    method: 'POST',
-                    body: JSON.stringify(obj),
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8'
-                    }
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        location.reload();
+                obj.key = document.getElementById("key").value;
+
+                if (jsonData[0].key == obj.key) {
+                    console.log("Correct!");
+
+                    var obj = {};
+                    obj.name = document.getElementById("name").value;
+                    obj.email = document.getElementById("email").value;
+                    obj.password = document.getElementById("password").value;
+
+                    fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(obj),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
                     })
-        
-                    .catch(error => {
-                        alert('There was an error ' + error);
-                    });
-            
-            } else {
-                console.log("Incorrect!");
-            }
+                        .then(response => response.text())
+                        .then(data => {
+                            location.reload();
+                        })
+
+                        .catch(error => {
+                            alert('There was an error ' + error);
+                        });
+
+                } else {
+                    console.log("Incorrect!");
+                }
 
             })
-    
+
             .catch(error => {
                 alert('There was an error ' + error);
             });
-    
+
     });
 
 }); // End of DOM content loaded 

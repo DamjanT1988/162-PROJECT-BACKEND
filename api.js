@@ -15,6 +15,7 @@ var keyRouter = require('./routes/keys');
 //creta app
 var api = express();
 
+//use CORS method
 api.use(cors({
   origin: 'http://localhost:8080',
   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']

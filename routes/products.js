@@ -84,14 +84,14 @@ db.once('open', function (callback) {
 			res.contentType('application/json');
 			res.send(id + " product updated!");
 			//update post in database and return console log
-			Product.updateOne({ _id: id }, { $set: body }, 
+			Product.updateOne({ _id: id }, { $set: body },
 				function (err, result) {
-				if (err) {
-					console.log(err)
-				} else {
-					console.log("Result :", result)
-				}
-			});
+					if (err) {
+						console.log(err)
+					} else {
+						console.log("Result :", result)
+					}
+				});
 		});
 	});
 
@@ -116,14 +116,14 @@ db.once('open', function (callback) {
 			res.contentType('application/json');
 			res.send(id + " product deleted");
 			//remove object in database and return message
-			Product.deleteOne({ _id: id }, 
+			Product.deleteOne({ _id: id },
 				function (err, result) {
-				if (err) {
-					console.log(err)
-				} else {
-					console.log("Result :", result)
-				}
-			});
+					if (err) {
+						console.log(err)
+					} else {
+						console.log("Result :", result)
+					}
+				});
 		});
 	});
 
