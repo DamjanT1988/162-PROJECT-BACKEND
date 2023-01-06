@@ -63,7 +63,7 @@ db.once('open', function (callback) {
 
 			//loop all users the array list
 			for (var i = 0; i < user.length; i++) {
-
+			
 				var id = user[i]._id;
 				//find the array index that holds email and password
 				if (user[i].email == email && user[i].password == password) {
@@ -74,9 +74,8 @@ db.once('open', function (callback) {
 							token: id
 						}
 					);
-					continue
 				}
-				return false
+				continue 
 			}
 		});
 	});
