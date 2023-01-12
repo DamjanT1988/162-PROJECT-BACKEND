@@ -74,8 +74,9 @@ db.once('open', function (callback) {
 							token: id
 						}
 					);
+					break;
 				}
-				continue 
+				continue;
 			}
 		});
 	});
